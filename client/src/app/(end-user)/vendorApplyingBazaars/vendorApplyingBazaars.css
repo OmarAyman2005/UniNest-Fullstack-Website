@@ -1,0 +1,196 @@
+/* ====== PAGE WRAPPER ====== */
+.apply-wrap{
+  min-height:100vh;
+  background:var(--color-bg);
+  color:var(--color-text-primary);
+  padding:24px 16px 48px;
+  display:flex; flex-direction:column;
+}
+
+/* Full-bleed (no card inset) */
+.apply-card{
+  width:100%;
+  max-width:none;
+  background:transparent;
+  border:none; border-radius:0; padding:0; box-shadow:none;
+}
+
+/* ====== TITLES (force white like Booth Plat) ====== */
+.apply-title{
+  color:#fff !important;          /* keep it white */
+  font-weight:900;
+  font-size:2.7rem;
+  margin:0 0 6px 0;
+}
+.apply-subtitle{ display:none; }
+
+/* ====== SECTIONS ====== */
+.fieldset{
+  margin:16px 0;
+  padding:12px 10px;
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:12px;
+}
+.legend{
+  font-weight:700;
+  color:var(--color-text-primary);
+  margin:0 0 10px 0;
+  border-bottom:1px dashed var(--color-border);
+  padding-bottom:8px;
+}
+
+/* ====== LAYOUT ====== */
+.row{ display:grid; gap:12px; grid-template-columns:1fr; margin-bottom:12px; }
+
+/* name | email | remove */
+.row.attendees-row{
+  grid-template-columns:1fr 1fr auto;
+  align-items:end;
+}
+
+/* Align the right-most cell like Booth Plat */
+.row-actions,
+.att-actions-col{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-bottom:4px;    /* nudges to line up with fields */
+}
+
+/* ====== FIELDS ====== */
+.field{ display:flex; flex-direction:column; }
+label{
+  font-size:.95rem;
+  font-weight:700;
+  margin-bottom:6px;
+  color:var(--color-text-primary);
+}
+input{
+  height:44px; padding:0 12px;
+  border-radius:10px;
+  border:1px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--color-text-primary);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+input:focus{ border-color:var(--color-primary); box-shadow:var(--input-focus-shadow); outline:none; }
+
+/* ====== ERRORS ====== */
+.form-error{ color:var(--color-error); font-size:.85rem; margin-top:6px; }
+.server-error{
+  margin-top:8px; color:var(--color-error);
+  background:rgba(239,68,68,.1);
+  border:1px solid var(--color-error);
+  padding:10px 12px; border-radius:8px;
+}
+
+/* ====== BUTTONS (Booth Plat) ====== */
+.btn{
+  height:42px; padding:0 16px; border-radius:10px;
+  border:1px solid transparent;
+  background:var(--color-primary);
+  color:var(--color-text-primary);
+  font-weight:800;
+  cursor:pointer; text-decoration:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.btn:hover{ background:var(--color-primary-hover); }
+.btn:disabled{ opacity:.7; cursor:not-allowed; }
+
+.btn-sm{ height:34px; padding:0 12px; font-size:.9rem; }
+
+.btn.ghost{
+  background:var(--color-highlight-bg);
+  color:var(--color-text-primary);
+  border:1px solid var(--color-border);
+}
+.btn.ghost:hover{ background:var(--color-border); }
+
+.btn.outline{
+  background:transparent;
+  color:var(--color-primary);
+  border:1px solid var(--color-primary);
+}
+
+/* ====== “+ Add person” — small + left-aligned ====== */
+.fieldset .row:last-child{
+  /* the row that contains the add button (inside attendees section) */
+  justify-items:start;
+}
+.fieldset .row:last-child .btn{
+  height:34px; padding:0 12px; font-size:.9rem;
+  background:var(--color-highlight-bg);
+  color:var(--color-text-primary);
+  border:1px solid var(--color-border);
+}
+.fieldset .row:last-child .btn:hover{ background:var(--color-border); }
+
+/* ====== REMOVE button (text, not “x”) ====== */
+.icon-btn{
+  height:34px; padding:0 12px;
+  border-radius:10px;
+  border:1px solid var(--color-error);
+  background:var(--color-highlight-bg);
+  color:var(--color-error);
+  font-weight:800;
+  cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.icon-btn:hover{ background:rgba(239,68,68,.15); }
+
+/* ====== Booth Size chips (base) ====== */
+label.btn.outline{
+  padding:0 14px; height:40px; border-radius:999px;
+  border:1px solid var(--color-border);
+  background:var(--color-highlight-bg);
+  color:var(--color-text-primary);
+  user-select:none; cursor:pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+label.btn.outline:hover{
+  border-color:var(--color-primary);
+  box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+/* hide the radio input if present inside */
+label.btn.outline input{ display:none; }
+
+/* ===== Booth Size chips (Booth Plat look) ===== */
+.size-chip{
+  height:40px;
+  padding:0 18px;
+  border-radius:999px;
+  border:1px solid var(--color-border);
+  background:var(--color-highlight-bg);
+  color:var(--color-text-primary);
+  font-weight:800;
+  display:inline-flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.size-chip:hover{
+  border-color:var(--color-primary);
+  box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+
+/* Selected state — bright fill + soft outer glow + subtle inner ring */
+.size-chip.active{
+  background:var(--color-primary);
+  color:#fff;
+  border-color:var(--color-primary);
+  box-shadow:
+    0 0 0 6px rgba(79,70,229,.20),
+    inset 0 0 0 2px rgba(0,0,0,.25);
+  transform:translateY(-1px);
+}
+
+/* ====== FORM ACTIONS ====== */
+.form-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px; }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width:720px){
+  .row.attendees-row{ grid-template-columns:1fr; }
+  .row-actions, .att-actions-col{ justify-content:flex-start; }
+  .form-actions{ flex-direction:column-reverse; align-items:stretch; }
+}

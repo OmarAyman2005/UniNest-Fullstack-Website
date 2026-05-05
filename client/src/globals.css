@@ -1,0 +1,173 @@
+/* Tailwind v4 */
+@import "tailwindcss";
+
+/* keep everything below exactly as your team has it */
+:root {
+  /* Backgrounds */
+  --color-bg: #0B0F19;
+  --color-surface: #161B26;
+  --color-highlight-bg: #1E2533;
+  --input-bg: rgba(255, 255, 255, 0.03);
+  
+  /* Text */
+  --color-text-primary: #F3F4F6;
+  --color-text-secondary: #9CA3AF;
+  
+  /* Borders */
+  --color-border: #2A2F3C;
+  --input-border: rgba(255, 255, 255, 0.04);
+
+  /* Accents */
+  --color-primary: #4F46E5;
+  --color-primary-hover: #6366F1;
+  --color-secondary: #14B8A6;
+  --color-success: #22C55E;
+  --color-error: #EF4444;
+
+  /* Shadows & Effects */
+  --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.15);
+  --input-focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+}
+
+/* plain utility classes that map to the root tokens (works without Tailwind build) */
+.bg-root {
+  background-color: var(--color-bg) !important;
+}
+
+.bg-surface {
+  background-color: var(--color-surface) !important;
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight-bg) !important;
+}
+
+.text-root-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.text-root-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.hover\:text-primary:hover {
+  color: var(--color-primary) !important;
+}
+
+.border-root {
+  border-color: var(--color-border) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.bg-primary-hover:hover {
+  background-color: var(--color-primary-hover) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-text-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.bg-success {
+  background-color: var(--color-success) !important;
+}
+
+.bg-error {
+  background-color: var(--color-error) !important;
+}
+
+.shadow-elevated {
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+.input-surface {
+  background-color: var(--input-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--input-border);
+}
+
+.input-surface,
+.input-surface * {
+  color: var(--color-text-primary) !important;
+}
+
+select.input-surface {
+  background-color: var(--input-bg);
+  color: var(--color-text-primary);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select.input-surface option {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+}
+
+select.input-surface:focus {
+  box-shadow: var(--input-focus-shadow);
+  outline: none;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.375rem; /* md */
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+}
+
+.menu-item:hover {
+  background-color: var(--color-primary-hover); 
+}
+
+.menu-item:focus,
+.menu-item:active {
+  outline: none;
+  box-shadow: var(--input-focus-shadow);
+  background-color: rgba(79, 70, 229, 0.10);
+  color: var(--color-primary);
+}
+
+/* ensure all buttons and button-like controls show pointer cursor */
+button,
+input[type="button"],
+input[type="submit"],
+.btn,
+.menu-item {
+  cursor: pointer;
+}
+
+/* dim buttons on hover with smooth transition */
+button,
+input[type="button"],
+input[type="submit"],
+.btn,
+.menu-item {
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.btn:hover,
+.menu-item:hover {
+  opacity: 0.85;
+  filter: brightness(0.95);
+}

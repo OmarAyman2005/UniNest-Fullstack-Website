@@ -1,0 +1,621 @@
+/* =========================================
+   UNINEST DARK THEME – Booth Platform Apply
+   (CSS-only: no JSX/logic changes)
+   ========================================= */
+
+/* ---- Root mappings to global tokens ---- */
+:root {
+  /* keep your layout vars; convert palette to global tokens */
+  --line: var(--color-border);
+  --soft-shadow: var(--shadow-soft);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --panel: var(--color-surface);
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --ghost: var(--color-highlight-bg);
+
+  --avail: #8ad06b;
+  --avail-border: #6fb654;
+  --sel: #0b2b12;
+
+  /* layout tuning (unchanged) */
+  --shift-x: 40px;
+  --building-right-offset: 8px;
+  --booth-w: 98px;
+  --booth-gap: 16px;
+  --building-w: 105px;
+  --building-right-nudge: 12px;
+}
+
+/* ===== PAGE SCAFFOLD (full-bleed + dark) ===== */
+.apply-page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px 16px 48px;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* Hide breadcrumbs (red circle) */
+.apply-breadcrumbs {
+  display: none;
+}
+
+.apply-head {
+  margin: 0 0 10px;
+}
+
+.apply-title {
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+
+.apply-subtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* ===== REMOVE “CARD” LOOK – stretch content ===== */
+.apply-card {
+  width: 100%;
+  max-width: none; /* full width */
+  background: transparent; /* no white panel */
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* ===== FORM GRID ===== */
+.apply-form {
+  display: block;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+}
+
+/* Inputs/selects -> dark “input-surface” */
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: var(--input-bg);
+  color: var(--color-text-primary);
+  font-size: 0.98rem;
+  outline: none;
+  transition: box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+input:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--input-focus-shadow);
+}
+
+/* ===== SIZE CHIPS (clear selected state – bold + glow) ===== */
+.size-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.size-chip {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-highlight-bg);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast), background var(--transition-fast),
+    border-color var(--transition-fast), color var(--transition-fast);
+}
+.size-chip:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+.size-chip.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+  font-weight: 800;
+}
+
+/* ===== ATTENDEES LIST – dark surface ===== */
+.att-list {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.att-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  padding: 10px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.att-row:first-of-type {
+  border-top: none;
+}
+
+.att-row--head {
+  background: var(--color-highlight-bg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.att-actions-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.att-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--color-highlight-bg);
+  border-top: 1px solid var(--color-border);
+}
+.att-count {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ===== PLATFORM GRID + MAP ===== */
+.plat {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* Building blocks – keep the yellow brand but on dark edges */
+.bldg {
+  position: absolute;
+  width: 105px;
+  height: 64px;
+  background: #f5ea3b;
+  border: 1px solid #d8c90f;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #333;
+  font-size: 0.9rem;
+}
+.bldg.left.top {
+  left: 8px;
+  top: 8px;
+}
+.bldg.left.btm {
+  left: 8px;
+  bottom: 8px;
+}
+.bldg.right.top,
+.bldg.right.btm {
+  right: calc(
+    var(--building-right-offset) + var(--booth-w) + var(--booth-gap) -
+      var(--building-right-nudge)
+  );
+}
+.bldg.right.top {
+  top: 8px;
+}
+.bldg.right.btm {
+  bottom: 8px;
+}
+
+/* Booths keep green availability */
+.booth {
+  position: absolute;
+  min-width: 98px;
+  height: 48px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--avail-border);
+  background: var(--avail);
+  color: var(--sel);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.06s, box-shadow 0.06s, outline 0.06s;
+}
+.booth:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.booth.selected {
+  outline: 3px solid rgba(79, 70, 229, 0.25);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1),
+    0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Booth coordinates (unchanged) */
+.b-top.b-1 {
+  left: calc(96px + var(--shift-x));
+  top: 16px;
+}
+.b-top.b-2 {
+  left: calc(204px + var(--shift-x));
+  top: 16px;
+}
+.b-top.b-3 {
+  left: calc(434px + var(--shift-x));
+  top: 16px;
+}
+.b-top.b-4 {
+  left: calc(542px + var(--shift-x));
+  top: 16px;
+}
+.b-right.b-r1,
+.b-right.b-r2,
+.b-right.b-r3 {
+  right: var(--building-right-offset);
+}
+.b-right.b-r1 {
+  top: 152px;
+}
+.b-right.b-r2 {
+  top: 244px;
+}
+.b-right.b-r3 {
+  top: 336px;
+}
+.b-btm.b-1b {
+  left: calc(96px + var(--shift-x));
+  bottom: 16px;
+}
+.b-btm.b-2b {
+  left: calc(204px + var(--shift-x));
+  bottom: 16px;
+}
+.b-btm.b-3b {
+  left: calc(434px + var(--shift-x));
+  bottom: 16px;
+}
+.b-btm.b-4b {
+  left: calc(542px + var(--shift-x));
+  bottom: 16px;
+}
+
+/* Help text */
+.inline-help {
+  margin: 6px 2px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Map overlay – dark surface box */
+.map-overlay {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  width: min(760px, calc(150% - 260px));
+  height: min(460px, calc(100% - 220px));
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  z-index: 2;
+}
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font: inherit;
+}
+
+/* Floating + / − */
+.map-zoom {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: grid;
+  gap: 6px;
+  z-index: 10000;
+  pointer-events: auto;
+}
+.map-zoom button {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+.btn-sm {
+  height: 34px;
+  padding: 0 12px;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-text-primary);
+  border-color: var(--color-primary);
+}
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+.btn-primary[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: var(--color-highlight-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+.btn-ghost:hover {
+  background: var(--color-border);
+}
+
+/* Actions & alerts */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.alert {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.alert--ok {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #86efac;
+}
+.alert--err {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fecaca;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 820px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .att-row {
+    grid-template-columns: 1fr;
+  }
+  .map-overlay {
+    width: calc(100% - 32px);
+    height: 320px;
+    left: 50%;
+  }
+}
+
+/* Make the static photo fill the old map box */
+.map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* use 'contain' if you prefer letterboxing */
+}
+
+/* === Make the entire platform section use plat.jpg as its background === */
+.plat {
+  position: relative; /* keep absolute children positioned the same */
+  background-image: url("/plat.jpg");
+  background-size: cover; /* fill the whole container */
+  background-position: center; /* center the photo */
+  background-repeat: no-repeat;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Optional: add a very soft dark tint so green chips pop (tweak alpha as you like) */
+.plat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1); /* 10% dark overlay; set to 0 to remove */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Keep booths/buildings above the background (and above the tint) */
+.bldg,
+.booth {
+  position: absolute;
+  z-index: 2;
+}
+
+/* We no longer need the old image overlay box; hide it if still in the markup */
+.plat .map-overlay {
+  display: none !important;
+}
+
+/* ===== Title & subtitle (top of page) ===== */
+.apply-title {
+  color: #fff !important; /* white */
+  font-weight: 900 !important; /* extra bold */
+  margin-bottom: 20px;
+  font-size: 2.7rem !important; /* larger */
+}
+
+/* the short helper line under the title */
+.apply-subtitle {
+  color: #fff !important; /* white */
+  font-weight: 700 !important; /* bold */
+  font-size: 1.05rem !important; /* a bit bigger */
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+/* ===== Duration <select> dropdown look ===== */
+/* closed state (the select field itself) */
+.form-field select {
+  background-color: var(--color-highlight-bg) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+}
+
+/* dropdown list (when opened) */
+.form-field select option {
+  background-color: var(--color-bg) !important; /* black-ish */
+  color: var(--color-text-primary) !important; /* white text */
+}
+
+/* optional: hovered/selected option color (Chrome/Edge) */
+.form-field select option:checked,
+.form-field select option:hover {
+  background-color: var(--color-primary) !important; /* violet */
+  color: #fff !important;
+}
+
+/* Inline help text under the platform image */
+.inline-help {
+  color: #fff !important; /* white */
+  font-weight: 800 !important; /* bold */
+  font-size: 1rem; /* (optional) slightly larger */
+}
+.inline-help strong {
+  color: #fff !important; /* keep the “Current booth / dates” in white too */
+  font-weight: 900;
+}
+
+/* ===== ID mini-uploader (same tokens/theme) ===== */
+.id-upload-row {
+  grid-column: 1 / -1;
+  background: var(--color-highlight-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
+}
+
+.id-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.id-file-cell {
+  grid-column: span 2;
+}
+.id-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+.id-file-name {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+.id-hint {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* mobile */
+@media (max-width: 820px) {
+  .id-upload-grid {
+    grid-template-columns: 1fr;
+  }
+  .id-file-cell {
+    grid-column: auto;
+  }
+}
+
+/* Simplified ID uploader (file only) */
+.id-upload-row {
+  grid-column: 1 / -1;
+  background: var(--color-highlight-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
+}
+.id-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+.id-file-name {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+.id-hint {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}

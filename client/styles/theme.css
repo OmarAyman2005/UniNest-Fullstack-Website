@@ -1,0 +1,8 @@
+:root {
+  --color-primary: #000000; /* black */
+  --color-bg: #0b0b0b;
+  --color-text: #eaeaea;
+  --color-muted: #9ca3af;
+  --color-card: #111111;
+  --radius: 16px;
+}
